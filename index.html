@@ -456,7 +456,7 @@ font-size:14.5px;line-height:1.5;color:var(--ink2);opacity:0;visibility:hidden;t
 .tab.on{color:var(--ink)}
 .tab i{font-style:normal;font-size:11px;font-weight:700;margin-left:5px;padding:1px 6px;border-radius:999px;color:#06130d;background:linear-gradient(100deg,#3ddc97,#8b7cff);vertical-align:2px}
 .tp-hint{text-align:center;font-size:13px;color:var(--ink3);margin-top:-24px}
-.tp-track{display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;margin:-18px -10px 0;align-items:flex-start;transition:height .35s ease;overscroll-behavior-x:contain}
+.tp-track{display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;margin:-18px -10px 0;align-items:flex-start;transition:height .3s ease;overscroll-behavior-x:contain;touch-action:pan-x pan-y}
 .tp-track::-webkit-scrollbar{display:none}
 .tp-panel{flex:0 0 100%;min-width:0;scroll-snap-align:start;scroll-snap-stop:always;padding:22px 10px 12px}
 .plan.test{border:1px solid transparent!important;background:linear-gradient(#121318,#121318) padding-box,linear-gradient(120deg,#8b7cff,#4da3ff 50%,#3ddc97) border-box!important;box-shadow:0 0 60px -14px rgba(139,124,255,.6)!important}
@@ -470,6 +470,20 @@ font-size:14.5px;line-height:1.5;color:var(--ink2);opacity:0;visibility:hidden;t
 .t-sub{font-size:15px;color:var(--ink2);margin:2px 0 -4px}
 @media (max-width:560px){.tab{height:40px;font-size:14.5px}.tp-hint{font-size:12.5px}.t-sub{font-size:14px}}
 @media (min-width:700px){.tp-hint{display:none}}
+
+.tp-track .glass{-webkit-backdrop-filter:none;backdrop-filter:none;background-color:#141519}
+.tp-panel{transform:translateZ(0)}
+.tp-track.peek .tp-panel{animation:peek 1.5s cubic-bezier(.45,.05,.3,1) 1}
+@keyframes peek{0%,100%{transform:translateX(0)}35%,55%{transform:translateX(-64px)}}
+.tp-hint{display:flex;align-items:center;justify-content:center;gap:10px}
+.sw{position:relative;display:inline-flex;align-items:center;gap:2px;height:22px;padding:0 6px;border-radius:999px;background:rgba(77,163,255,.12);border:.5px solid rgba(77,163,255,.4);color:#8cc2ff;font-style:normal}
+.sw i{font-style:normal;font-size:15px;line-height:1;animation:swi 1.6s ease-in-out infinite}
+.sw i:last-child{animation-name:swr}
+.sw b{width:16px;height:2px;border-radius:2px;background:currentColor;opacity:.6;animation:swb 1.6s ease-in-out infinite}
+@keyframes swi{0%,100%{transform:translateX(0);opacity:.5}50%{transform:translateX(-3px);opacity:1}}
+@keyframes swr{0%,100%{transform:translateX(0);opacity:.5}50%{transform:translateX(3px);opacity:1}}
+@keyframes swb{0%,100%{transform:scaleX(.6)}50%{transform:scaleX(1)}}
+@media (min-width:700px){.tp-hint{display:flex}}
 @media (prefers-reduced-motion:reduce){*{transition:none !important;animation:none !important}html{scroll-behavior:auto}.arrows,.ups{display:none}}
 .plan.hot{overflow:visible}
 .off,.off *{animation-play-state:paused!important}
@@ -621,7 +635,7 @@ font-size:14.5px;line-height:1.5;color:var(--ink2);opacity:0;visibility:hidden;t
       <button class="tab" role="tab" type="button" aria-selected="false" data-i="1">Reels</button>
       <button class="tab" role="tab" type="button" aria-selected="false" data-i="2">Микс<i>β</i></button>
     </div>
-    <p class="tp-hint">Смахните влево или вправо, чтобы сменить формат</p>
+    <p class="tp-hint"><span class="sw"><i>‹</i><b></b><i>›</i></span>Смахните, чтобы увидеть Reels и Микс</p>
     <div class="tp-track" id="tptrack">
       <div class="tp-panel" id="tp0" role="tabpanel" aria-label="Stories"><div class="price-grid">
         <article class="glass has-pop plan">
@@ -886,14 +900,24 @@ var io=new IntersectionObserver(function(es){es.forEach(function(e){e.target.cla
 <script>
 (function(){
 var tr=document.getElementById('tptrack');if(!tr)return;
-var tabs=[].slice.call(document.querySelectorAll('.tab')),ind=document.querySelector('.tab-ind'),ps=[].slice.call(tr.children),cur=0;
+var tabs=[].slice.call(document.querySelectorAll('.tab')),ind=document.querySelector('.tab-ind'),ps=[].slice.call(tr.children),cur=0,lastW=tr.clientWidth,idle,touched=false;
 function fit(){var p=ps[cur],h=p.offsetHeight,o=p.querySelector('.has-pop.open .pop');if(o){h=Math.max(h,o.getBoundingClientRect().bottom-p.getBoundingClientRect().top+12)}tr.style.height=h+'px'}
-function set(i){cur=i;tabs.forEach(function(t,k){t.classList.toggle('on',k===i);t.setAttribute('aria-selected',String(k===i))});ind.style.transform='translateX('+(i*100)+'%)';fit()}
-tabs.forEach(function(t,k){t.addEventListener('click',function(){tr.scrollTo({left:k*tr.clientWidth,behavior:'smooth'});set(k)})});
-var raf;tr.addEventListener('scroll',function(){cancelAnimationFrame(raf);raf=requestAnimationFrame(function(){var i=Math.round(tr.scrollLeft/tr.clientWidth);if(i!==cur)set(i)})},{passive:true});
-tr.addEventListener('click',function(){setTimeout(fit,30)});document.addEventListener('click',function(){setTimeout(fit,30)});
-window.addEventListener('resize',function(){tr.scrollLeft=cur*tr.clientWidth;fit()});
+function mark(i){if(i===cur)return;cur=i;tabs.forEach(function(t,k){t.classList.toggle('on',k===i);t.setAttribute('aria-selected',String(k===i))});ind.style.transform='translateX('+(i*100)+'%)'}
+/* during a swipe only the tab indicator moves; height changes once the swipe has settled */
+tr.addEventListener('scroll',function(){touched=true;var i=Math.round(tr.scrollLeft/tr.clientWidth);mark(i);clearTimeout(idle);idle=setTimeout(fit,140)},{passive:true});
+tabs.forEach(function(t,k){t.addEventListener('click',function(){touched=true;mark(k);tr.scrollTo({left:k*tr.clientWidth,behavior:'smooth'})})});
+document.addEventListener('click',function(){setTimeout(fit,30)});
+/* iOS fires resize when the address bar hides: only react to real width changes */
+window.addEventListener('resize',function(){var w=tr.clientWidth;if(w===lastW)return;lastW=w;tr.scrollLeft=cur*w;fit()});
 window.addEventListener('load',fit);fit();
+/* swipe hint: peek at the next format when the block first comes into view */
+function peek(){if(touched||cur!==0)return;tr.classList.remove('peek');void tr.offsetWidth;tr.classList.add('peek')}
+if('IntersectionObserver' in window&&!(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)){
+  var seen=false,io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&!seen){seen=true;setTimeout(peek,500);setTimeout(peek,6500);io.disconnect()}})},{threshold:.55});
+  io.observe(tr);
+}
+tr.addEventListener('animationend',function(){tr.classList.remove('peek')});
+['touchstart','pointerdown','wheel'].forEach(function(ev){tr.addEventListener(ev,function(){touched=true;tr.classList.remove('peek')},{passive:true})});
 })();
 </script>
 
