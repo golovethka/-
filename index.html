@@ -376,8 +376,8 @@ font-size:14.5px;line-height:1.5;color:var(--ink2);opacity:0;visibility:hidden;t
 .plan:not(.hot) .p-act{grid-template-columns:1fr 1fr;gap:8px}
 .plan:not(.hot) .p-act .btn{height:40px;font-size:14px;padding:0 8px}
 .plan:not(.hot) .pop{width:calc(200% + 16px)}
-.plan:nth-child(2) .pop{left:auto;right:0}
-.plan:nth-child(2) .badge.save{position:absolute;top:-13px;right:-6px;transform:rotate(6deg);background:var(--acc);color:#06130d;font-size:13px;padding:5px 12px;box-shadow:0 8px 20px -6px rgba(61,220,151,.6);border:0;z-index:2}
+.plan.rc .pop{left:auto;right:0}
+.plan.rc .badge.save{position:absolute;top:-13px;right:-6px;transform:rotate(6deg);background:var(--acc);color:#06130d;font-size:13px;padding:5px 12px;box-shadow:0 8px 20px -6px rgba(61,220,151,.6);border:0;z-index:2}
 @media (max-width:699px){
 .price-grid{gap:12px}
 .plan:not(.hot){padding:14px;gap:10px}
@@ -387,7 +387,7 @@ font-size:14.5px;line-height:1.5;color:var(--ink2);opacity:0;visibility:hidden;t
 .plan:not(.hot) .p-act{grid-template-columns:1fr}
 .plan:not(.hot) .p-act .btn{height:36px;font-size:13px}
 .plan:not(.hot) .pop{width:calc(200% + 12px);padding:16px 50px 16px 14px}
-.plan:nth-child(2) .badge.save{font-size:11.5px;padding:4px 9px;top:-12px;right:-4px}
+.plan.rc .badge.save{font-size:11.5px;padding:4px 9px;top:-12px;right:-4px}
 }
 
 .step{gap:10px!important}
@@ -442,13 +442,34 @@ font-size:14.5px;line-height:1.5;color:var(--ink2);opacity:0;visibility:hidden;t
 .plan:not(.hot) .price{font-size:31px}
 .plan:not(.hot) .old{font-size:14.5px!important}
 .plan:not(.hot) .p-act .btn{height:42px;font-size:14.5px}
-.plan:nth-child(2) .badge.save{font-size:13px}
+.plan.rc .badge.save{font-size:13px}
 .trio .tl,.trio .tu{font-size:13.5px}
 .save-in{font-size:13px}
 .takeover span{font-size:19px}
 .small,.foot{font-size:13.5px}
 .gb{height:56px;font-size:17px}
 }
+
+.tabs{position:relative;align-self:center;display:grid;grid-template-columns:repeat(3,1fr);padding:4px;border-radius:999px;background:rgba(255,255,255,.06);border:.5px solid var(--glass-edge);width:min(420px,100%);margin-top:-16px}
+.tab-ind{position:absolute;top:4px;bottom:4px;left:4px;width:calc((100% - 8px)/3);border-radius:999px;background:#08090b;border:1px solid rgba(77,163,255,.55);box-shadow:0 0 18px -6px rgba(77,163,255,.8);transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.tab{position:relative;z-index:1;height:42px;border:0;background:none;color:var(--ink2);font:inherit;font-size:15px;font-weight:600;cursor:pointer;border-radius:999px;transition:color .25s}
+.tab.on{color:var(--ink)}
+.tab i{font-style:normal;font-size:11px;font-weight:700;margin-left:5px;padding:1px 6px;border-radius:999px;color:#06130d;background:linear-gradient(100deg,#3ddc97,#8b7cff);vertical-align:2px}
+.tp-hint{text-align:center;font-size:13px;color:var(--ink3);margin-top:-24px}
+.tp-track{display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;margin:-18px -10px 0;align-items:flex-start;transition:height .35s ease;overscroll-behavior-x:contain}
+.tp-track::-webkit-scrollbar{display:none}
+.tp-panel{flex:0 0 100%;min-width:0;scroll-snap-align:start;scroll-snap-stop:always;padding:22px 10px 12px}
+.plan.test{border:1px solid transparent!important;background:linear-gradient(#121318,#121318) padding-box,linear-gradient(120deg,#8b7cff,#4da3ff 50%,#3ddc97) border-box!important;box-shadow:0 0 60px -14px rgba(139,124,255,.6)!important}
+.plan.test .price.g{background:linear-gradient(100deg,#b3a9ff,#8b7cff 50%,#4da3ff);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 18px rgba(139,124,255,.6))}
+.plan.test .btn.grn{background:linear-gradient(100deg,#8b7cff,#4da3ff);color:#fff}
+.t-tags{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.hit{display:inline-flex;align-items:center;gap:4px;font-size:13px;font-weight:800;letter-spacing:.04em;padding:5px 12px 5px 9px;border-radius:999px;color:#1a1200;background:linear-gradient(100deg,#ffd76a,#ffb23f);box-shadow:0 0 22px -4px rgba(255,190,70,.8);animation:hitp 2.4s ease-in-out infinite}
+.hit svg{width:14px;height:14px;fill:currentColor}
+@keyframes hitp{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+.beta{font-size:12.5px;font-weight:600;padding:4px 11px;border-radius:999px;color:#c4bbff;background:rgba(139,124,255,.14);border:.5px solid rgba(139,124,255,.5)}
+.t-sub{font-size:15px;color:var(--ink2);margin:2px 0 -4px}
+@media (max-width:560px){.tab{height:40px;font-size:14.5px}.tp-hint{font-size:12.5px}.t-sub{font-size:14px}}
+@media (min-width:700px){.tp-hint{display:none}}
 @media (prefers-reduced-motion:reduce){*{transition:none !important;animation:none !important}html{scroll-behavior:auto}.arrows,.ups{display:none}}
 .plan.hot{overflow:visible}
 .off,.off *{animation-play-state:paused!important}
@@ -594,25 +615,70 @@ font-size:14.5px;line-height:1.5;color:var(--ink2);opacity:0;visibility:hidden;t
     <div class="head c">
       <h2>Тарифы</h2>
     </div>
-    <div class="price-grid">
-      <article class="glass has-pop plan">
-        <div class="p-main"><div class="plan-top"><h3>1 Stories</h3></div>
-        <div class="pbox"><div class="old num ph" aria-hidden="true">&nbsp;</div><div class="price num">15 000 ₽</div></div></div>
-        <div class="p-act"><button class="btn alt pbtn" type="button" aria-expanded="false">Что входит</button><a class="btn alt" href="https://t.me/convers_io" target="_blank" rel="noopener">Выбрать</a></div>
-        <div class="pop" role="note"><button class="x" type="button" aria-label="Закрыть">×</button><b>Что входит в тариф «1 Stories»</b><ul class="feat"><li>≈ 10,6 тыс. просмотров ожидаемо</li><li>От 7,9 до 15,5 тыс. по реальному разбросу</li><li>1 412 ₽ за 1 000 просмотров</li><li>Ссылка с меткой и отчёт со статистикой</li></ul></div>
-      </article>
-      <article class="glass has-pop plan">
-        <div class="p-main"><div class="plan-top"><h3>3 Stories</h3><span class="badge save">Выгода 10 000 ₽</span></div>
-        <div class="pbox"><div class="old num"><span class="sr">Старая цена </span>45 000 ₽</div><div class="price num g">35 000 ₽</div></div></div>
-        <div class="p-act"><button class="btn alt pbtn" type="button" aria-expanded="false">Что входит</button><a class="btn alt" href="https://t.me/convers_io" target="_blank" rel="noopener">Выбрать</a></div>
-        <div class="pop" role="note"><button class="x" type="button" aria-label="Закрыть">×</button><b>Что входит в тариф «3 Stories»</b><ul class="feat"><li>≈ 31,9 тыс. просмотров ожидаемо</li><li>От 23,7 до 46,4 тыс. по реальному разбросу</li><li>1 098 ₽ за 1 000 просмотров</li><li>Ссылка с меткой и отчёт со статистикой</li></ul></div>
-      </article>
-      <article class="glass has-pop plan hot">
-        <div class="p-main"><div class="plan-top"><h3>7 Stories</h3></div>
-        <div class="pbox"><div class="old-row"><div class="old num"><span class="sr">Старая цена </span>105 000 ₽</div><span class="save-in">Выгода 25 000 ₽</span></div><div class="price num g">80 000 ₽</div></div></div>
-        <div class="p-act"><button class="btn alt pbtn" type="button" aria-expanded="false">Что входит</button><a class="btn grn" href="https://t.me/convers_io" target="_blank" rel="noopener">Выбрать</a></div>
-        <div class="pop" role="note"><button class="x" type="button" aria-label="Закрыть">×</button><b>Что входит в тариф «7 Stories»</b><ul class="feat"><li>≈ 74,4 тыс. просмотров ожидаемо</li><li>От 55,3 до 108,2 тыс. по реальному разбросу</li><li>1 076 ₽ за 1 000 просмотров</li><li>Серия для информационного прогрева</li></ul></div>
-      </article>
+    <div class="tabs" role="tablist" aria-label="Формат">
+      <span class="tab-ind" aria-hidden="true"></span>
+      <button class="tab on" role="tab" type="button" aria-selected="true" data-i="0">Stories</button>
+      <button class="tab" role="tab" type="button" aria-selected="false" data-i="1">Reels</button>
+      <button class="tab" role="tab" type="button" aria-selected="false" data-i="2">Микс<i>β</i></button>
+    </div>
+    <p class="tp-hint">Смахните влево или вправо, чтобы сменить формат</p>
+    <div class="tp-track" id="tptrack">
+      <div class="tp-panel" id="tp0" role="tabpanel" aria-label="Stories"><div class="price-grid">
+        <article class="glass has-pop plan">
+          <div class="p-main"><div class="plan-top"><h3>1 Stories</h3></div><div class="pbox"><div class="old num ph" aria-hidden="true">&nbsp;</div><div class="price num">15 000 ₽</div></div></div>
+          <div class="p-act"><button class="btn alt pbtn" type="button" aria-expanded="false">Что входит</button><a class="btn alt" href="https://t.me/convers_io" target="_blank" rel="noopener">Выбрать</a></div>
+          <div class="pop" role="note"><button class="x" type="button" aria-label="Закрыть">×</button><b>Что входит в тариф «1 Stories»</b><ul class="feat"><li>≈ 10,6 тыс. просмотров ожидаемо</li><li>От 7,9 до 15,5 тыс. по реальному разбросу</li><li>1 412 ₽ за 1 000 просмотров</li><li>Ссылка с меткой и отчёт со статистикой</li></ul></div>
+        </article>
+        <article class="glass has-pop plan rc">
+          <div class="p-main"><div class="plan-top"><h3>3 Stories</h3><span class="badge save">Выгода 10 000 ₽</span></div><div class="pbox"><div class="old num"><span class="sr">Старая цена </span>45 000 ₽</div><div class="price num g">35 000 ₽</div></div></div>
+          <div class="p-act"><button class="btn alt pbtn" type="button" aria-expanded="false">Что входит</button><a class="btn alt" href="https://t.me/convers_io" target="_blank" rel="noopener">Выбрать</a></div>
+          <div class="pop" role="note"><button class="x" type="button" aria-label="Закрыть">×</button><b>Что входит в тариф «3 Stories»</b><ul class="feat"><li>≈ 31,9 тыс. просмотров ожидаемо</li><li>От 23,7 до 46,4 тыс. по реальному разбросу</li><li>1 098 ₽ за 1 000 просмотров</li><li>Ссылка с меткой и отчёт со статистикой</li></ul></div>
+        </article>
+        <article class="glass has-pop plan hot">
+          <div class="p-main"><div class="plan-top"><h3>7 Stories</h3></div><div class="pbox"><div class="old-row"><div class="old num"><span class="sr">Старая цена </span>105 000 ₽</div><span class="save-in">Выгода 25 000 ₽</span></div><div class="price num g">80 000 ₽</div></div></div>
+          <div class="p-act"><button class="btn alt pbtn" type="button" aria-expanded="false">Что входит</button><a class="btn grn" href="https://t.me/convers_io" target="_blank" rel="noopener">Выбрать</a></div>
+          <div class="pop" role="note"><button class="x" type="button" aria-label="Закрыть">×</button><b>Что входит в тариф «7 Stories»</b><ul class="feat"><li>≈ 74,4 тыс. просмотров ожидаемо</li><li>От 55,3 до 108,2 тыс. по реальному разбросу</li><li>1 076 ₽ за 1 000 просмотров</li><li>Серия для информационного прогрева</li></ul></div>
+        </article>
+      </div></div>
+      <div class="tp-panel" id="tp1" role="tabpanel" aria-label="Reels"><div class="price-grid">
+        <article class="glass has-pop plan">
+          <div class="p-main"><div class="plan-top"><h3>1 Reels</h3></div><div class="pbox"><div class="old num ph" aria-hidden="true">&nbsp;</div><div class="price num">50 000 ₽</div></div></div>
+          <div class="p-act"><button class="btn alt pbtn" type="button" aria-expanded="false">Что входит</button><a class="btn alt" href="https://t.me/convers_io" target="_blank" rel="noopener">Выбрать</a></div>
+          <div class="pop" role="note"><button class="x" type="button" aria-label="Закрыть">×</button><b>Что входит в тариф «1 Reels»</b><ul class="feat"><li>Ролик о вашем продукте в профиле Алишера</li><li>Сценарий согласуем до съёмки</li><li>Ссылка с меткой и отчёт со статистикой</li><li>Для ориентира: Reels аккаунта набрали 1,79 млн просмотров за 30 дней</li></ul></div>
+        </article>
+        <article class="glass has-pop plan rc">
+          <div class="p-main"><div class="plan-top"><h3>2 Reels</h3><span class="badge save">Выгода 10 000 ₽</span></div><div class="pbox"><div class="old num"><span class="sr">Старая цена </span>100 000 ₽</div><div class="price num g">90 000 ₽</div></div></div>
+          <div class="p-act"><button class="btn alt pbtn" type="button" aria-expanded="false">Что входит</button><a class="btn alt" href="https://t.me/convers_io" target="_blank" rel="noopener">Выбрать</a></div>
+          <div class="pop" role="note"><button class="x" type="button" aria-label="Закрыть">×</button><b>Что входит в тариф «2 Reels»</b><ul class="feat"><li>Два ролика с разной подачей</li><li>Видно, какая подача работает лучше</li><li>Сценарии согласуем до съёмки</li><li>Ссылки с меткой и отчёт по каждому ролику</li></ul></div>
+        </article>
+        <article class="glass has-pop plan hot">
+          <div class="p-main"><div class="plan-top"><h3>3 Reels</h3></div><div class="pbox"><div class="old-row"><div class="old num"><span class="sr">Старая цена </span>150 000 ₽</div><span class="save-in">Выгода 25 000 ₽</span></div><div class="price num g">125 000 ₽</div></div></div>
+          <div class="p-act"><button class="btn alt pbtn" type="button" aria-expanded="false">Что входит</button><a class="btn grn" href="https://t.me/convers_io" target="_blank" rel="noopener">Выбрать</a></div>
+          <div class="pop" role="note"><button class="x" type="button" aria-label="Закрыть">×</button><b>Что входит в тариф «3 Reels»</b><ul class="feat"><li>Серия из трёх роликов для прогрева</li><li>Сценарии согласуем до съёмки</li><li>Ссылки с меткой и отчёт по каждому ролику</li><li>Для ориентира: Reels аккаунта набрали 1,79 млн просмотров за 30 дней</li></ul></div>
+        </article>
+      </div></div>
+      <div class="tp-panel" id="tp2" role="tabpanel" aria-label="Микс"><div class="price-grid">
+        <article class="glass has-pop plan hot test">
+          <div class="p-main"><div class="plan-top"><h3>Тестовый режим</h3></div><div class="pbox"><div class="t-tags"><span class="hit"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>ХИТ</span><span class="beta">β · бета, доступно временно</span></div><p class="t-sub">3 тестовых Reels → лучший остаётся в профиле</p><div class="price num g">50 000 ₽</div></div></div>
+          <div class="p-act"><button class="btn alt pbtn" type="button" aria-expanded="false">Что входит</button><a class="btn grn" href="https://t.me/convers_io" target="_blank" rel="noopener">Выбрать</a></div>
+          <div class="pop" role="note"><button class="x" type="button" aria-label="Закрыть">×</button><b>Что входит в тариф «Тестовый режим»</b><ul class="feat"><li>Алишер снимает 3 тестовых Reels под вашу задачу</li><li>Тестовые Reels Instagram сначала показывает тем, кто не подписан на Алишера</li><li>Ролик, который наберёт больше всех, Алишер выкладывает в профиль, и он там остаётся</li><li>Отчёт по всем трём роликам</li></ul></div>
+        </article>
+        <article class="glass has-pop plan">
+          <div class="p-main"><div class="plan-top"><h3>1 Reels + 1 Stories</h3></div><div class="pbox"><div class="old num ph" aria-hidden="true">&nbsp;</div><div class="price num">65 000 ₽</div></div></div>
+          <div class="p-act"><button class="btn alt pbtn" type="button" aria-expanded="false">Что входит</button><a class="btn alt" href="https://t.me/convers_io" target="_blank" rel="noopener">Выбрать</a></div>
+          <div class="pop" role="note"><button class="x" type="button" aria-label="Закрыть">×</button><b>Что входит в тариф «1 Reels + 1 Stories»</b><ul class="feat"><li>1 Reels в профиле Алишера</li><li>1 Stories: в среднем ≈ 10,6 тыс. просмотров</li><li>Ссылка с меткой и отчёт со статистикой</li></ul></div>
+        </article>
+        <article class="glass has-pop plan rc">
+          <div class="p-main"><div class="plan-top"><h3>1 Reels + 2 Stories</h3><span class="badge save">Выгода 5 000 ₽</span></div><div class="pbox"><div class="old num"><span class="sr">Старая цена </span>80 000 ₽</div><div class="price num g">75 000 ₽</div></div></div>
+          <div class="p-act"><button class="btn alt pbtn" type="button" aria-expanded="false">Что входит</button><a class="btn alt" href="https://t.me/convers_io" target="_blank" rel="noopener">Выбрать</a></div>
+          <div class="pop" role="note"><button class="x" type="button" aria-label="Закрыть">×</button><b>Что входит в тариф «1 Reels + 2 Stories»</b><ul class="feat"><li>1 Reels в профиле Алишера</li><li>2 Stories: ≈ 21,3 тыс. просмотров ожидаемо</li><li>Ролик и напоминание о нём в Stories</li><li>Ссылки с меткой и отчёт</li></ul></div>
+        </article>
+        <article class="glass has-pop plan hot">
+          <div class="p-main"><div class="plan-top"><h3>2 Reels + 3 Stories</h3></div><div class="pbox"><div class="old-row"><div class="old num"><span class="sr">Старая цена </span>145 000 ₽</div><span class="save-in">Выгода 15 000 ₽</span></div><div class="price num g">130 000 ₽</div></div></div>
+          <div class="p-act"><button class="btn alt pbtn" type="button" aria-expanded="false">Что входит</button><a class="btn grn" href="https://t.me/convers_io" target="_blank" rel="noopener">Выбрать</a></div>
+          <div class="pop" role="note"><button class="x" type="button" aria-label="Закрыть">×</button><b>Что входит в тариф «2 Reels + 3 Stories»</b><ul class="feat"><li>2 Reels в профиле Алишера</li><li>3 Stories: ≈ 31,9 тыс. просмотров ожидаемо</li><li>Связка роликов и Stories для прогрева</li><li>Ссылки с меткой и отчёт по каждой публикации</li></ul></div>
+        </article>
+      </div></div>
     </div>
   </section>
 
@@ -815,6 +881,19 @@ show(PEAK);window.addEventListener('resize',function(){show(PEAK)});
 if(!('IntersectionObserver' in window))return;
 var io=new IntersectionObserver(function(es){es.forEach(function(e){e.target.classList.toggle('off',!e.isIntersecting)})},{rootMargin:'120px'});
 [].forEach.call(document.querySelectorAll('header,section'),function(x){io.observe(x)});
+})();
+</script>
+<script>
+(function(){
+var tr=document.getElementById('tptrack');if(!tr)return;
+var tabs=[].slice.call(document.querySelectorAll('.tab')),ind=document.querySelector('.tab-ind'),ps=[].slice.call(tr.children),cur=0;
+function fit(){var p=ps[cur],h=p.offsetHeight,o=p.querySelector('.has-pop.open .pop');if(o){h=Math.max(h,o.getBoundingClientRect().bottom-p.getBoundingClientRect().top+12)}tr.style.height=h+'px'}
+function set(i){cur=i;tabs.forEach(function(t,k){t.classList.toggle('on',k===i);t.setAttribute('aria-selected',String(k===i))});ind.style.transform='translateX('+(i*100)+'%)';fit()}
+tabs.forEach(function(t,k){t.addEventListener('click',function(){tr.scrollTo({left:k*tr.clientWidth,behavior:'smooth'});set(k)})});
+var raf;tr.addEventListener('scroll',function(){cancelAnimationFrame(raf);raf=requestAnimationFrame(function(){var i=Math.round(tr.scrollLeft/tr.clientWidth);if(i!==cur)set(i)})},{passive:true});
+tr.addEventListener('click',function(){setTimeout(fit,30)});document.addEventListener('click',function(){setTimeout(fit,30)});
+window.addEventListener('resize',function(){tr.scrollLeft=cur*tr.clientWidth;fit()});
+window.addEventListener('load',fit);fit();
 })();
 </script>
 
