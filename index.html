@@ -516,6 +516,12 @@ font-size:14.5px;line-height:1.5;color:var(--ink2);opacity:0;visibility:hidden;t
 @keyframes shine{0%{background-position:120% 0}100%{background-position:-120% 0}}
 .plan.test .price{margin-top:2px}
 .plan.test .t-sub{margin:6px 0 0;max-width:46ch}
+
+.boom{position:absolute;width:0;height:0;z-index:40;pointer-events:none}
+.boom i{position:absolute;left:0;top:0;border-radius:999px;will-change:transform,opacity}
+.boom .dot{width:7px;height:7px}
+.boom .spark{width:3px;height:14px}
+.boom .ring{border:2px solid rgba(140,194,255,.7);border-radius:50%;box-shadow:0 0 24px rgba(77,163,255,.5);opacity:0}
 @media (prefers-reduced-motion:reduce){*{transition:none !important;animation:none !important}html{scroll-behavior:auto}.arrows,.ups{display:none}}
 .plan.hot{overflow:visible}
 .off,.off *{animation-play-state:paused!important}
@@ -596,7 +602,7 @@ font-size:14.5px;line-height:1.5;color:var(--ink2);opacity:0;visibility:hidden;t
     </svg>
     <div class="counter" id="counter" aria-hidden="true">1,09M</div>
     <p class="quote">Узнаваемость — ваш главный инструмент</p>
-    <p class="sub">Я вам могу его дать.</p>
+    <p class="sub">Я могу это предоставить.</p>
   </section>
 
   <section>
@@ -694,7 +700,7 @@ font-size:14.5px;line-height:1.5;color:var(--ink2);opacity:0;visibility:hidden;t
           <div class="pop" role="note"><button class="x" type="button" aria-label="Закрыть">×</button><b>Что входит в тариф «1 Reels»</b><ul class="feat"><li>Ролик о вашем продукте в профиле Алишера</li><li>Сценарий согласуем до съёмки</li><li>Ссылка с меткой и отчёт со статистикой</li><li>Для ориентира: Reels аккаунта набрали 1,79 млн просмотров за 30 дней</li></ul></div>
         </article>
         <article class="glass has-pop plan rc">
-          <div class="p-main"><div class="plan-top"><h3>2 Reels</h3><span class="badge save">Выгода 10 000 ₽</span></div><div class="pbox"><div class="old num"><span class="sr">Старая цена </span>100 000 ₽</div><div class="price num g">90 000 ₽</div></div></div>
+          <div class="p-main"><div class="plan-top"><h3>2 Reels</h3><span class="badge save">Выгода 20 000 ₽</span></div><div class="pbox"><div class="old num"><span class="sr">Старая цена </span>100 000 ₽</div><div class="price num g">80 000 ₽</div></div></div>
           <div class="p-act"><button class="btn alt pbtn" type="button" aria-expanded="false">Что входит</button><a class="btn alt" href="https://t.me/convers_io" target="_blank" rel="noopener">Выбрать</a></div>
           <div class="pop" role="note"><button class="x" type="button" aria-label="Закрыть">×</button><b>Что входит в тариф «2 Reels»</b><ul class="feat"><li>Два ролика с разной подачей</li><li>Видно, какая подача работает лучше</li><li>Сценарии согласуем до съёмки</li><li>Ссылки с меткой и отчёт по каждому ролику</li></ul></div>
         </article>
@@ -820,15 +826,33 @@ font-size:14.5px;line-height:1.5;color:var(--ink2);opacity:0;visibility:hidden;t
   var ease=function(k){return k<.5?4*k*k*k:1-Math.pow(-2*k+2,3)/2};
   function tween(from,to,dur,fn,done,ez){var t0=null;ez=ez||ease;function s(t){if(!t0)t0=t;var k=Math.min(1,(t-t0)/dur);fn(from+(to-from)*ez(k));if(k<1)requestAnimationFrame(s);else if(done)done()}requestAnimationFrame(s)}
 
+  /* mini fireworks around a number when it lands */
+  function burst(el){
+    if(reduce||!el.animate)return;
+    var r=el.getBoundingClientRect(),cx=r.left+r.width/2+scrollX,cy=r.top+r.height/2+scrollY,R=Math.max(r.width,r.height)*.5;
+    var box=document.createElement('div');box.className='boom';box.style.left=cx+'px';box.style.top=cy+'px';document.body.appendChild(box);
+    var C=['#3ddc97','#4da3ff','#8b7cff','#ffd76a','#ffffff'],N=26;
+    var ring=document.createElement('i');ring.className='ring';box.appendChild(ring);
+    ring.animate([{transform:'translate(-50%,-50%) scale(.3)',opacity:.9},{transform:'translate(-50%,-50%) scale(1)',opacity:0}],{duration:700,easing:'cubic-bezier(.2,.8,.2,1)'});
+    ring.style.width=ring.style.height=(R*2.6)+'px';
+    for(var i=0;i<N;i++){
+      var a=(i/N)*Math.PI*2+Math.random()*.35,d=R*.75+Math.random()*R*.7,sp=document.createElement('i'),c=C[i%C.length],long=i%3===0;
+      sp.className=long?'spark':'dot';sp.style.background=c;sp.style.boxShadow='0 0 8px '+c;box.appendChild(sp);
+      var x=Math.cos(a)*d,y=Math.sin(a)*d*.62,rot=a*180/Math.PI+90;
+      sp.animate([{transform:'translate(-50%,-50%) rotate('+rot+'deg) scale(.4)',opacity:0},{offset:.15,opacity:1},{transform:'translate(calc(-50% + '+x+'px),calc(-50% + '+(y+14)+'px)) rotate('+rot+'deg) scale(1)',opacity:0}],{duration:850+Math.random()*350,easing:'cubic-bezier(.15,.7,.3,1)',fill:'forwards'});
+    }
+    setTimeout(function(){box.remove()},1400);
+  }
+
   /* hero counter: 100 -> 1K -> 50K -> 100K -> 500K -> 999K -> 1,3 млн */
   (function(){
     var h=document.getElementById('hc');if(!h||reduce)return;
-    var LO=100,HI=999000,DUR=4200,t0=null;
+    var LO=100,HI=999000,DUR=2100,t0=null;
     function f(v){if(v<1000)return String(Math.floor(v));if(v<10000)return nf(Math.floor(v/100)/10,1)+' тыс';return Math.floor(v/1000)+' тыс'}
     function step(t){
       if(!t0)t0=t;var k=Math.min(1,(t-t0)/DUR),e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;
       if(k<1){h.textContent=f(LO*Math.pow(HI/LO,e));requestAnimationFrame(step)}
-      else{h.textContent='1,3 млн';h.animate([{transform:'scale(1.06)'},{transform:'scale(1)'}],{duration:500,easing:'cubic-bezier(.2,.8,.2,1)'})}
+      else{h.textContent='1,3 млн';h.animate([{transform:'scale(1.08)'},{transform:'scale(1)'}],{duration:500,easing:'cubic-bezier(.2,.8,.2,1)'});burst(h)}
     }
     h.textContent='100';setTimeout(function(){requestAnimationFrame(step)},400);
   })();
@@ -848,14 +872,14 @@ font-size:14.5px;line-height:1.5;color:var(--ink2);opacity:0;visibility:hidden;t
   }
   function loop(){
     if(!running)return;
-    var t0=null,GROW=6000,HOLD=1800;
+    var t0=null,GROW=3000,HOLD=1800,popped=false;
     function step(t){
       if(!running)return;
       if(!t0)t0=t;var e=t-t0;
       if(e<GROW){var s=fmt(Math.pow(10,LOGT*(e/GROW))),u=/[KM]$/.test(s)?s.slice(-1):'';cEl.textContent=s;
         if(u!==lastUnit){lastUnit=u;cEl.classList.add('tick');setTimeout(function(){cEl.classList.remove('tick')},220)}
         requestAnimationFrame(step)}
-      else if(e<GROW+HOLD){cEl.textContent='1,09M';cEl.style.opacity=1;requestAnimationFrame(step)}
+      else if(e<GROW+HOLD){if(!popped){popped=true;cEl.textContent='1,09M';cEl.animate([{transform:'scale(1.08)'},{transform:'scale(1)'}],{duration:500,easing:'cubic-bezier(.2,.8,.2,1)'});burst(cEl)}cEl.style.opacity=1;requestAnimationFrame(step)}
       else if(e<GROW+HOLD+400){cEl.style.opacity=1-(e-GROW-HOLD)/400;requestAnimationFrame(step)}
       else{cEl.style.opacity=1;lastUnit='';loop()}
     }
