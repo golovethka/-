@@ -493,6 +493,28 @@ font-size:14.5px;line-height:1.5;color:var(--ink2);opacity:0;visibility:hidden;t
 @keyframes finger{0%{opacity:0;transform:translateX(0) scale(1.3)}16%{opacity:1;transform:translateX(0) scale(.88)}68%{opacity:1;transform:translateX(-150px) scale(.88)}100%{opacity:0;transform:translateX(-175px) scale(1.15)}}
 
 .save-in.tsave{color:#d6cfff;background:rgba(139,124,255,.16);border-color:rgba(139,124,255,.6);box-shadow:0 0 20px -4px rgba(139,124,255,.85)}
+
+.plan.test{overflow:hidden;isolation:isolate}
+.plan.test>*:not(.crack):not(.pop){position:relative;z-index:1}
+.plan.test .pop{z-index:4}
+.crack{position:absolute;inset:0;z-index:0;pointer-events:none;border-radius:inherit;overflow:hidden}
+.crack svg{width:100%;height:100%;display:block}
+.crack .sh{fill:rgba(255,215,106,.035)}.crack .sh2{fill:rgba(139,124,255,.05)}
+.crack path{vector-effect:non-scaling-stroke}
+.crack .cg path{fill:none;stroke:rgba(255,200,80,.18);stroke-width:7;stroke-linecap:round;stroke-linejoin:round}
+.crack .cl path{fill:none;stroke:rgba(255,226,140,.75);stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
+.crack .cg,.crack .cl{animation:zap 5s linear infinite}
+@keyframes zap{0%,84%,100%{opacity:.55}86%{opacity:1}87%{opacity:.25}88.5%{opacity:1}91%{opacity:.6}}
+.plan.test .hit{gap:6px;padding:6px 14px 6px 10px;font-size:13px;font-weight:700;letter-spacing:0;text-transform:none;animation:hitg 2.2s ease-in-out infinite}
+.plan.test .hit em{font-style:normal;font-weight:800;font-size:14px;display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;background:rgba(26,18,0,.16)}
+@keyframes hitg{0%,100%{transform:scale(1);box-shadow:0 0 16px -4px rgba(255,190,70,.7)}50%{transform:scale(1.045);box-shadow:0 0 30px 0 rgba(255,200,80,.85)}}
+.plan.test .pbox{gap:6px}.plan.test .old-row{margin-top:8px}
+.mega{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-top:2px}
+.mega-l{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#ffd76a}
+.mega-v{font-size:clamp(26px,3.6vw,34px);font-weight:800;letter-spacing:-.03em;line-height:1;background:linear-gradient(100deg,#ffb23f 0%,#fff3c4 40%,#ffd76a 55%,#ffb23f 100%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 14px rgba(255,190,70,.55));animation:shine 3.2s linear infinite;padding-right:.05em}
+@keyframes shine{0%{background-position:120% 0}100%{background-position:-120% 0}}
+.plan.test .price{margin-top:2px}
+.plan.test .t-sub{margin:6px 0 0;max-width:46ch}
 @media (prefers-reduced-motion:reduce){*{transition:none !important;animation:none !important}html{scroll-behavior:auto}.arrows,.ups{display:none}}
 .plan.hot{overflow:visible}
 .off,.off *{animation-play-state:paused!important}
@@ -697,8 +719,13 @@ font-size:14.5px;line-height:1.5;color:var(--ink2);opacity:0;visibility:hidden;t
           <div class="p-act"><button class="btn alt pbtn" type="button" aria-expanded="false">Что входит</button><a class="btn grn" href="https://t.me/convers_io" target="_blank" rel="noopener">Выбрать</a></div>
           <div class="pop" role="note"><button class="x" type="button" aria-label="Закрыть">×</button><b>Что входит в тариф «2 Reels + 3 Stories»</b><ul class="feat"><li>2 Reels в профиле Алишера</li><li>3 Stories: ≈ 31,9 тыс. просмотров ожидаемо</li><li>Связка роликов и Stories для прогрева</li><li>Ссылки с меткой и отчёт по каждой публикации</li></ul></div>
         </article>
-        <article class="glass has-pop plan hot test">
-          <div class="p-main"><div class="plan-top"><h3>Тестовый режим</h3></div><div class="pbox"><div class="t-tags"><span class="hit"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>ХИТ</span><span class="beta">β · бета, доступно временно</span></div><p class="t-sub">3 тестовых Reels → лучший остаётся в профиле. Как 3 Reels по цене одного</p><div class="old-row"><div class="old num"><span class="sr">3 обычных Reels: </span>150 000 ₽</div><span class="save-in tsave">Выгода 100 000 ₽</span></div><div class="price num g">50 000 ₽</div></div></div>
+        <article class="glass has-pop plan hot test"><span class="crack" aria-hidden="true"><svg viewBox="0 0 400 300" preserveAspectRatio="none">
+<path class="sh" d="M268 0 L292 54 L262 88 L300 140 L276 300 L400 300 L400 0Z"/>
+<path class="sh2" d="M0 190 L70 168 L118 206 L150 300 L0 300Z"/>
+<g class="cg"><path d="M268 0 L292 54 L262 88 L300 140 L282 196 L298 240 L276 300"/><path d="M262 88 L214 112 L190 160 L150 176"/><path d="M300 140 L352 158 L400 150"/><path d="M190 160 L118 206 L70 168 L0 190"/><path d="M118 206 L150 300"/><path d="M282 196 L336 230"/></g>
+<g class="cl"><path d="M268 0 L292 54 L262 88 L300 140 L282 196 L298 240 L276 300"/><path d="M262 88 L214 112 L190 160 L150 176"/><path d="M300 140 L352 158 L400 150"/><path d="M190 160 L118 206 L70 168 L0 190"/><path d="M118 206 L150 300"/><path d="M282 196 L336 230"/></g>
+</svg></span>
+          <div class="p-main"><div class="plan-top"><h3>Тестовый режим</h3></div><div class="pbox"><div class="t-tags"><span class="hit"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg><em>β</em>· бета, доступно временно</span></div><div class="old-row"><div class="old num"><span class="sr">3 обычных Reels: </span>150 000 ₽</div></div><div class="mega"><span class="mega-l">Выгода</span><span class="mega-v num">100 000 ₽</span></div><div class="price num g">50 000 ₽</div><p class="t-sub">3 тестовых Reels → лучший остаётся в профиле. Как 3 Reels по цене одного</p></div></div>
           <div class="p-act"><button class="btn alt pbtn" type="button" aria-expanded="false">Что входит</button><a class="btn grn" href="https://t.me/convers_io" target="_blank" rel="noopener">Выбрать</a></div>
           <div class="pop" role="note"><button class="x" type="button" aria-label="Закрыть">×</button><b>Что входит в тариф «Тестовый режим»</b><ul class="feat"><li>Алишер снимает 3 тестовых Reels под вашу задачу</li><li>Тестовые Reels Instagram сначала показывает тем, кто не подписан на Алишера</li><li>Ролик, который наберёт больше всех, Алишер выкладывает в профиль, и он там остаётся</li><li>Отчёт по всем трём роликам</li></ul></div>
         </article>
